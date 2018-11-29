@@ -60,7 +60,6 @@ class TrashStaffController extends Controller
         }else{
             $message = 'ไม่สารมาถทำการบันทึกข้อมูลได้';
         }
-        // dd($request);
 
         return redirect('trash_staff/index')->with('message', $message);
     }
