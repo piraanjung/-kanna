@@ -60,7 +60,7 @@
                     <div class="card card-profile">
                         <div class="card-avatar">
                             <a href="#pablo">
-                                <img class="img" src="{{asset('assets/img/faces/marc.jpg')}}">
+                                <img class="img" src="{{$item->profile->image =='' ? asset('assets/img/placeholder.jpg') : asset('images/'.$item->profile->image)}}">
                             </a>
                         </div>
                         <div class="card-body">

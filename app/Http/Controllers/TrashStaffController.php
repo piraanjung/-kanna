@@ -37,30 +37,29 @@ class TrashStaffController extends Controller
         $new_staff->created_at = date('Y-m-d H:i:s');
         $new_staff->updated_at = date('Y-m-d H:i:s');
         if($new_staff->save()){
+            //ทำการบันทึกข้อมูลทั่วไปของ staff ลงใน profiles table
+            $new_profile = new Profiles;
+            $new_profile->user_id = $new_staff->id;
+            $new_profile->name = $request->name;
+            $new_profile->lastname = $request->lastname;
+            $new_profile->id_card = $request->id_card;
+            $new_profile->phone = $request->phone;
+            $new_profile->address = $request->address;
+            $new_profile->tambon = $request->tambon;
+            $new_profile->district = $request->district;
+            $new_profile->province = $request->province;
+            $new_profile->gender = $request->gender;
+            $new_profile->created_at = date('Y-m-d H:i:s');
+            $new_profile->updated_at = date('Y-m-d H:i:s');
             if($request->hasFile('file')){
                 //ถ้ามี รูปให้ทำการ save รูป และ update image path 
-                //ทำการบันทึกข้อมูลทั่วไปของ staff ลงใน profiles table
-                $new_profile = new Profiles;
-                $new_profile->user_id = $new_staff->id;
-                $new_profile->name = $request->name;
-                $new_profile->lastname = $request->lastname;
-                $new_profile->id_card = $request->id_card;
-                $new_profile->phone = $request->phone;
-                $new_profile->address = $request->address;
-                $new_profile->tambon = $request->tambon;
-                $new_profile->district = $request->district;
-                $new_profile->province = $request->province;
-                $new_profile->gender = $request->gender;
-                $new_profile->image = $this->getJquery->uploadImage($request->file, 'trashstaff', $new_staff->id);
-                $new_profile->created_at = date('Y-m-d H:i:s');
-                $new_profile->updated_at = date('Y-m-d H:i:s');
-                $new_profile->save();
+                $new_profile->image = $this->getJquery->uploadImage($request->file, 'trashstaff', $new_staff->id); 
             }
+            $new_profile->save();
             $message = 'ทำการบันทึกข้อมูลเรียบร้อยแล้ว';
         }else{
             $message = 'ไม่สารมาถทำการบันทึกข้อมูลได้';
         }
-
         return redirect('trash_staff/index')->with('message', $message);
     }
 

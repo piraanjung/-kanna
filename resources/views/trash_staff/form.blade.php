@@ -73,7 +73,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="label-control">อำเภอ</label>
-                            <select name="distric" class="select2 form-control district"></select>
+                            <select name="district" class="select2 form-control district"></select>
                         </div>
                     </div>
 
