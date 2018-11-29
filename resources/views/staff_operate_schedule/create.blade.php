@@ -8,8 +8,30 @@
 @endsection
 
 @section('content')
-    <form action="{{url('staff_operate_schedule/store')}}" method="POST">
-        @csrf
-        @include('staff_operate_schedule/form', ['formMode' =>'create']);
-    </form>
+    @if ($staff_count > 0)
+        <form action="{{url('staff_operate_schedule/store')}}" method="POST">
+            @csrf
+            @include('staff_operate_schedule/form', ['formMode' =>'create']);
+        </form>
+    @else
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="title text-center">ยังไม่มีการเพิ่มข้อมูล Staff ต้องทำการเพิ่มข้อมูล Staff ก่อน</h3>
+                        <ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" role="tablist">
+                                
+                                <li class="nav-item">
+                                  <a class="nav-link active" href="{{url('trash_staff/index')}}" role="tablist">
+                                    <i class="material-icons">person_add</i> เพิ่มข้อมูล Staff
+                                  </a>
+                                </li>
+                               
+                              </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    
 @endsection

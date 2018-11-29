@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TrashStaffs;
+use App\TrashStaffs; 
 use App\Profiles;
 use App\Province;
 use App\Http\Controllers\GetJQueryController;
@@ -66,5 +66,9 @@ class TrashStaffController extends Controller
 
     public function get_districts(Request $request){
         return  $this->getJquery->getDistricts($request->province_code);
+    }
+
+    public function get_tambons(Request $request){
+        return  $this->getJquery->getTambons($request->amphur_code);
     }
 }

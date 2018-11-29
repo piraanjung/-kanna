@@ -45,6 +45,7 @@ Route::post('staff_operate_schedule/store', 'StaffOperateScheduleController@stor
 Route::get('trash_staff/index', 'TrashStaffController@index');
 Route::get('trash_staff/create', 'TrashStaffController@create');
 Route::post('trash_staff/get_districts', 'TrashStaffController@get_districts');
+Route::post('trash_staff/get_tambons', 'TrashStaffController@get_tambons');
 Route::post('trash_staff/store', 'TrashStaffController@store');
 
 

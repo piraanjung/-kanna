@@ -54,22 +54,9 @@
                         </div>
                     </div>
                 </div>
+            
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group bmd-form-group">
-                            <label class="bmd-label-floating">ที่อยู่</label>
-                            <input type="text" class="form-control" name="address" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123/123 บ้านรักสะอาด">
-                        </div>
-                    </div>
                     <div class="col-md-4">
-                        <div class="form-group bmd-form-group">
-                            <label class="bmd-label-floating">ตำบล</label>
-                            <input type="text" class="form-control" name="tambon">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
                         <div class="form-group {{ $errors->has('province') ? 'has-error' : ''}}">
                             <label for="province" class="label-control">จังหวัด</label>
                             <select class="select2 form-control province" name="province" id="province">
@@ -83,13 +70,28 @@
 
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="label-control">อำเภอ</label>
                             <select name="distric" class="select2 form-control district"></select>
                         </div>
                     </div>
 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="label-control">ตำบล</label>
+                            <select name="tambon" class="select2 form-control tambon"></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group bmd-form-group">
+                            <label class="bmd-label-floating">ที่อยู่</label>
+                            <input type="text" class="form-control" name="address" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123/123 บ้านรักสะอาด">
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-rose pull-right">Update Profile</button>

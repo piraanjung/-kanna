@@ -474,10 +474,24 @@
         data: {_token: CSRF_TOKEN, province_code:province_code},
         // dataType: 'JSON',  
         success: function (data) { 
-          console.log(data)
             $(".district").html(data);
         }
       }); 
+    })
+
+    $('.district').change(function(){
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      amphur_code = $(this).val()
+      console.log(amphur_code)
+      $.ajax({
+        url: '/trash_staff/get_tambons',
+        type: 'POST',
+        data: {_token: CSRF_TOKEN, amphur_code: amphur_code},
+        success: function(data){
+          console.log(data)
+          $('.tambon').html(data)
+        }
+      })
     })
 
     $('#file').change(function(){

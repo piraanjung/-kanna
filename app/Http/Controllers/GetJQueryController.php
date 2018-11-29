@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\District;
+use App\Tambon;
 use Image;
 
 
@@ -19,12 +20,26 @@ class GetJQueryController extends Controller
                 <option>เลือก...</option>
                 ';
                 foreach($districts as $district){
-        $str.=       '<option value="'.$district->amphur_id.'">'.$district->amphur_name.'</option>';        
+        $str.=       '<option value="'.$district->amphur_code.'">'.$district->amphur_name.'</option>';        
                 }
         $str.= '</select>';
 
         return $str;
     }
+
+    public function getTambons($amphur_code){
+        $tambons = Tambon::where('amphur_code', $amphur_code)->get();
+        $str = '<select class="select2 form-control">
+                <option>เลือก...</option>
+                ';
+                foreach($tambons as $tambon){
+        $str.=       '<option value="'.$tambon->tambon_code.'">'.$tambon->tambon_name.'</option>';        
+                }
+        $str.= '</select>';
+
+        return $str;
+    }
+
 
     public function uploadImage($file, $imge_cat_name,$id){
         //resize image

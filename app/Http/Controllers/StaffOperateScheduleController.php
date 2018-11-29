@@ -17,6 +17,7 @@ class StaffOperateScheduleController extends Controller
     public function __construct(DateTimeController $dateTime){
         $this->dateTime = $dateTime;
     }
+    
     public function index(){
         $during_staff_schedule = StaffOperateSchedule::where('status','sending')
             ->orWhere('status','accepted')->orWhere('status','operating')
@@ -29,8 +30,9 @@ class StaffOperateScheduleController extends Controller
 
     public function create(){
         $staffs = TrashStaffs::where('status', 'active')->get();
+        $staff_count = TrashStaffs::where('status', 'active')->count();
         $areas = BuyTrashArea::where('status', 'active')->get(['area_name', 'id']);
-        return view('staff_operate_schedule.create',compact('staffs' ,'areas' ));
+        return view('staff_operate_schedule.create',compact('staffs' ,'areas', 'staff_count' ));
     }
 
     public function store(Request $request){
