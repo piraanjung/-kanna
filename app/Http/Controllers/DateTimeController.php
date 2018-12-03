@@ -22,6 +22,11 @@ class DateTimeController extends Controller
 
     public function time_format($time){
         $timeArr = explode(" ", $time);
-        return $timeArr[0];
+        $time = $timeArr[0];
+        if($timeArr[1] == "PM"){
+            $t = explode(":", $timeArr[0]);
+            $time = ($t[0]+12).":".$t[1];
+        }
+        return $time;
     }
 }

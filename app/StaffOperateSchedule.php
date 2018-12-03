@@ -13,6 +13,10 @@ class StaffOperateSchedule extends Model
         return $this->belongsTo('App\User', 'staff_id');
     }
 
+    public function trash_staff(){
+        return $this->belongsTo('App\TrashStaffs', 'staff_id');
+    }
+
     public function buy_trash_point()
     {
         return $this->belongsTo('App\BuyTrashPoint', 'point_id');

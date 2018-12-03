@@ -64,7 +64,6 @@
               <div class="tab-pane active" id="about">
             <div class="row">
             @foreach ($items as $item)
-            
             <div class="col-md-4">
                 <div class="card card-profile">
                   <div class="card-avatar">
@@ -73,11 +72,11 @@
                     </a>
                   </div>
                   <div class="card-body">
-                    <h6 class="card-category text-gray">{{$item->user->id_card}}</h6>
-                    <h4 class="card-title">{{$item->user->name}} {{$item->user->last_name}}</h4>
+                    <h6 class="card-category text-gray">{{$item->trash_staff->profile->id_card}}</h6>
+                    <h4 class="card-title">{{$item->trash_staff->profile->name}} {{$item->trash_staff->profile->lastname}}</h4>
                         <div class="card-footer">
                             <div class="price">
-                              <h4>{{$item->user->mobile}}</h4>
+                              <h4>{{$item->trash_staff->profile->phone}}</h4>
                             </div>
                             <div class="stats">
                               <p class="card-category"><i class="material-icons">phone</i> เบอร์โทร</p>

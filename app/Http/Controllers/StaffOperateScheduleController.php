@@ -22,6 +22,7 @@ class StaffOperateScheduleController extends Controller
         $during_staff_schedule = StaffOperateSchedule::where('status','sending')
             ->orWhere('status','accepted')->orWhere('status','operating')
             ->get()->groupBy('operation_date');
+            // dd($during_staff_schedule);
 
         $past_staff_schedule = StaffOperateSchedule::where('status', 'complete')->where('status','cancel')->get();
         return view('staff_operate_schedule.index', compact('during_staff_schedule', 'past_staff_schedule'));
@@ -30,15 +31,22 @@ class StaffOperateScheduleController extends Controller
 
     public function create(){
         $staffs = TrashStaffs::where('status', 'active')->get();
-        $staff_count = TrashStaffs::where('status', 'active')->count();
+        $during_staff = DB::table('trash_staffs')
+            ->rightJoin('staff_operation_schedule', 'trash_staffs.id', '=', 'staff_operation_schedule.staff_id')
+            ->select('trash_staffs.id','staff_operation_schedule.staff_id', 'staff_operation_schedule.operation_date')
+            ->where('staff_operation_schedule.status', '==', 'cancel')
+            ->where('staff_operation_schedule.status', '==', 'complete')
+            ->where('staff_operation_schedule.operation_date','>=', date('Y-m-d'))
+            ->get();
+            dd($during_staff);
+            $staff_count = TrashStaffs::where('status', 'active')->count();
         $areas = BuyTrashArea::where('status', 'active')->get(['area_name', 'id']);
-        return view('staff_operate_schedule.create',compact('staffs' ,'areas', 'staff_count' ));
+        return view('staff_operate_schedule.create',compact('staffs' ,'areas', 'staff_count', 'during_staff' ));
     }
 
     public function store(Request $request){
         $date = $this->dateTime->_date_format($request->operate_date);
         $time = $this->dateTime->time_format($request->operate_time);
-        // dd($request);
         foreach($request->staff_choosed as $staff){
             $operdate = DB::table('staff_operation_schedule')->insert([
                 'staff_id' => $staff,

@@ -9,7 +9,7 @@
 
 @section('content')
     @if ($staff_count > 0)
-        <form action="{{url('staff_operate_schedule/store')}}" method="POST">
+        <form action="{{url('staff_operate_schedule/store')}}" method="post">
             @csrf
             @include('staff_operate_schedule/form', ['formMode' =>'create']);
         </form>

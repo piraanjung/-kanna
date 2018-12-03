@@ -21,9 +21,10 @@ class TrashController extends Controller
     }
 
     public function create(){
+        $trash = new Trash;
         $categories = ItemCategories::where('status', 1)->get(['id', 'name']);
         $units = Unit::all();
-        return view('trash.create', compact('categories', 'units') );
+        return view('trash.create', compact('categories', 'units', 'trash') );
     }
 
     public function store(TrashRequest $request){
