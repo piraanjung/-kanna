@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\District;
 use App\Tambon;
+use App\Bottles;
+use App\sellBottlesInSchool;
 use Image;
 
 
@@ -63,5 +65,30 @@ class GetJQueryController extends Controller
         $img->save($path);
         return $filename;
         
+    }
+
+    public function check_bottle_barcode($barcode){
+        $result = Bottles::where(['barcode' =>$barcode])
+        ->leftJoin('items', 'items.id', '=', 'bottles.items_id')
+        ->get(['items.*', 'bottles.*']);
+        return response()->json($result, 200);
+    }
+
+    public function store_bottles(Request $request){
+        $saveBottle = new sellBottlesInSchool;
+        $saveBottle->user_id = 1;//$request->user_id;
+        $saveBottle->bottle_id = $request->id;
+        $saveBottle->bottle_num = 1;
+        $saveBottle->price = 0.17;
+        $saveBottle->sum_price = $saveBottle->bottle_num * $saveBottle->price;
+        $saveBottle->created_at = date('Y-m-d H:i:s');	
+        $saveBottle->withdraw_id = 0;
+        $saveBottle->updated_at = date('Y-m-d H:i:s');	
+
+
+        if($saveBottle->save()){
+            // $arr = ['success' => 'ok'];
+            return response()->json($request, 200);
+        }
     }
 }

@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '/authen',
+        'get_jquery/store_bottles',
+        '/authen-by-password-and-phone'
     ];
 }

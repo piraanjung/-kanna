@@ -48,4 +48,9 @@ Route::post('trash_staff/get_districts', 'TrashStaffController@get_districts');
 Route::post('trash_staff/get_tambons', 'TrashStaffController@get_tambons');
 Route::post('trash_staff/store', 'TrashStaffController@store');
 
+Route::get('get_jquery/check_bottle_barcode/{id}', 'GetJQueryController@check_bottle_barcode');
+Route::post('get_jquery/store_bottles', 'GetJQueryController@store_bottles');
 
+
+Route::post('/authen', 'AuthenController@authen');
+Route::post('/authen-by-password-and-phone','AuthenController@authen_by_password_and_phone');
