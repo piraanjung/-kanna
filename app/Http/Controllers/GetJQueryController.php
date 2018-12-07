@@ -70,7 +70,8 @@ class GetJQueryController extends Controller
     public function check_bottle_barcode($barcode){
         $result = Bottles::where(['barcode' =>$barcode])
         ->leftJoin('items', 'items.id', '=', 'bottles.items_id')
-        ->get(['items.*', 'bottles.*']);
+        ->leftJoin('units', 'items.unit_id', 'units.id')
+        ->get(['items.*', 'bottles.*', 'units.un_name']);
         return response()->json($result, 200);
     }
 

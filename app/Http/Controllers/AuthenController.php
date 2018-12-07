@@ -43,18 +43,19 @@ class AuthenController extends Controller
     
     public function authen_by_password_and_phone(Request $request)
     {
-				$phonenumber = ($request->has('phonenumber')? $request->phonenumber : 0);
-				$password = ($request->has('password')? $request->password : 0);
-				if ($phonenumber == '' || $phonenumber == '0' || $password =='' || $password == '0') {
+				$mobile = ($request->has('mobile')? $request->mobile : 0);
+				$passwords = ($request->has('passwords')? $request->passwords : 0);
+				if ($mobile == '' || $mobile == '0' || $passwords =='' || $passwords == '0') {
 					$result = ['message'=>'ไม่พบผู้ใช้งาน'];
 					$code = 204;
 				}else {
-					$result = User::where('mobile', '=', $phonenumber)->first();
-					$result = $this->verifyhasPassword($password, $result);
+					$result = User::where('mobile', $mobile)->first();
+                    $result = $this->verifyhasPassword($passwords, $result);
+                    // array_push($results, $result);
 					$code = 200;
-				}$result = ['message'=>'ไม่พบผู้ใช้งาน'];
+				}
 				
-				return response()->json($request, $code);
+				return response()->json($result, $code);
     }
 
     private function verifyhasPassword($plainPassword, $result)
