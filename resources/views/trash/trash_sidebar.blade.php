@@ -29,23 +29,18 @@
             <p>เจ้าหน้าที่จัดการขยะ</p>
           </a>
         </li>
+    
         <li class="nav-item ">
-          <a class="nav-link" href="./map.html">
-            <i class="material-icons">location_ons</i>
-            <p>Maps</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#tablesExamples" aria-expanded="false">
+            <a class="nav-link" data-toggle="collapse" href="#tablesExamples" aria-expanded="true">
               <i class="material-icons">grid_on</i>
               <p> ตั้งค่า
                 <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse" id="tablesExamples" style="">
+            <div class="collapse show" id="tablesExamples" style="">
               <ul class="nav">
-                <li class="nav-item ">
-                  <a class="nav-link" href="../../examples/tables/regular.html">
+                <li class="nav-item <?php echo  $index == 6 ? 'active' : '';?>">
+                  <a class="nav-link" href="{{url('settings/buy-trash-area')}}">
                     <span class="sidebar-mini"> RT </span>
                     <span class="sidebar-normal"> ตั้งค่าพื้นที่รับซื้อขยะ </span>
                   </a>

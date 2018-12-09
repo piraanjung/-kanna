@@ -54,3 +54,9 @@ Route::post('get_jquery/store_bottles', 'GetJQueryController@store_bottles');
 
 Route::post('/authen', 'AuthenController@authen');
 Route::post('/authen-by-password-and-phone','AuthenController@authen_by_password_and_phone');
+
+
+Route::get('settings/buy-trash-area', 'settings\BuyTrashAreaController@index');
+Route::get('settings/buy-trash-area/create', 'settings\BuyTrashAreaController@create');
+Route::post('settings/buy-trash-area/store', 'settings\BuyTrashAreaController@store');
+Route::patch('settings/buy-trash-area/update/{id}', 'settings\BuyTrashAreaController@update');

@@ -63,7 +63,7 @@
 
             <H3>เลือก Staff</H3>
             <div class="row">
-                    @foreach ($staffs as $staff)
+                    @foreach ($during_staff as $staff)
                     
                     <div class="col-md-4">
                         <div class="card card-profile">
@@ -73,11 +73,11 @@
                             </a>
                           </div>
                           <div class="card-body">
-                            <h6 class="card-category text-gray">{{$staff->profile->id_card}}</h6>
-                            <h4 class="card-title">{{$staff->profile->name}} {{$staff->profile->lastname}}</h4>
+                            <h6 class="card-category text-gray">{{$staff->id_card}}</h6>
+                            <h4 class="card-title">{{$staff->name}} {{$staff->lastname}}</h4>
                                 <div class="card-footer">
                                     <div class="price">
-                                      <h4>{{$staff->profile->phone}}</h4>
+                                      <h4>{{$staff->phone}}</h4>
                                     </div>
                                     <div class="stats">
                                       <p class="card-category"><i class="material-icons">phone</i> เบอร์โทร</p>

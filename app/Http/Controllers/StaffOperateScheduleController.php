@@ -31,15 +31,32 @@ class StaffOperateScheduleController extends Controller
 
     public function create(){
         $staffs = TrashStaffs::where('status', 'active')->get();
-        $during_staff = DB::table('trash_staffs')
-            ->rightJoin('staff_operation_schedule', 'trash_staffs.id', '=', 'staff_operation_schedule.staff_id')
-            ->select('trash_staffs.id','staff_operation_schedule.staff_id', 'staff_operation_schedule.operation_date')
-            ->where('staff_operation_schedule.status', '==', 'cancel')
-            ->where('staff_operation_schedule.status', '==', 'complete')
-            ->where('staff_operation_schedule.operation_date','>=', date('Y-m-d'))
-            ->get();
-            dd($during_staff);
-            $staff_count = TrashStaffs::where('status', 'active')->count();
+        // $during_staff = DB::table('trash_staffs')
+        //     ->rightJoin('staff_operation_schedule', 'trash_staffs.id', '=', 'staff_operation_schedule.staff_id')
+        //     ->select('trash_staffs.id','staff_operation_schedule.staff_id', 'staff_operation_schedule.operation_date')
+        //     ->where('staff_operation_schedule.status', '==', 'cancel')
+        //     ->where('staff_operation_schedule.status', '==', 'complete')
+        //     ->where('staff_operation_schedule.operation_date','>=', date('Y-m-d'))
+        //     ->get();
+        // $during_staff = TrashStaffs::where('staff_operation_schedule.status','NULL')
+        //     ->orWhere('staff_operation_schedule.status', 'complete')
+        //     ->orWhere('staff_operation_schedule.status', 'cancel')
+        //     ->where('staff_operation_schedule.operation_date', '>=','2018-11-20')
+        //     ->orWhere('staff_operation_schedulex.operation_date', 'NULL')
+        //     ->leftJoin('staff_operation_schedule' ,'trash_staffs.id', '=', 'staff_operation_schedule.staff_id')
+        //     ->leftJoin('profiles', 'profiles.id', '=', 'profiles.user_id') 
+        //     ->get(['trash_staffs.username', 'profiles.name', 'staff_operation_schedule.status', 'staff_operation_schedule.operation_date', 'staff_operation_schedule.staff_id']);
+        $during_staff = DB::select("SELECT 
+            a.username, a.id,
+            c.name, c.lastname,c.id_card,c.phone,
+            b.status, b.operation_date, b.staff_id FROM `trash_staffs` a 
+        LEFT JOIN staff_operation_schedule b ON a.id = b.staff_id 
+        LEFT JOIN profiles c ON a.id = c.user_id WHERE (b.status IS NULL OR b.status = 'complete' OR b.status = 'cancel') AND ((b.operation_date >='2018-11-20' OR b.operation_date IS NULL))
+        ");
+
+
+            // dd($during_staff);
+        $staff_count = TrashStaffs::where('status', 'active')->count();
         $areas = BuyTrashArea::where('status', 'active')->get(['area_name', 'id']);
         return view('staff_operate_schedule.create',compact('staffs' ,'areas', 'staff_count', 'during_staff' ));
     }
