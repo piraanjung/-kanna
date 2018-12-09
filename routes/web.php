@@ -56,9 +56,16 @@ Route::post('/authen', 'AuthenController@authen');
 Route::post('/authen-by-password-and-phone','AuthenController@authen_by_password_and_phone');
 
 
-Route::get('settings/buy-trash-area', 'settings\BuyTrashAreaController@index');
-Route::get('settings/buy-trash-area/create', 'settings\BuyTrashAreaController@create');
+Route::get('settings/buy_trash_area/index', 'settings\BuyTrashAreaController@index');
+Route::get('settings/buy_trash_area/create', 'settings\BuyTrashAreaController@create');
 Route::post('settings/buy_trash_area/store', 'settings\BuyTrashAreaController@store');
 Route::get('settings/buy_trash_area/edit/{id}', 'settings\BuyTrashAreaController@edit');
 Route::patch('settings/buy_trash_area/update/{id}', 'settings\BuyTrashAreaController@update');
 Route::get('settings/buy_trash_area/delete/{id}', 'settings\BuyTrashAreaController@delete');
+
+Route::get('settings/buy_trash_point/index', 'settings\BuyTrashPointController@index');
+Route::get('settings/buy_trash_point/create', 'settings\BuyTrashPointController@create');
+Route::post('settings/buy_trash_point/store', 'settings\BuyTrashPointController@store');
+Route::get('settings/buy_trash_point/edit/{id}', 'settings\BuyTrashPointController@edit');
+Route::patch('settings/buy_trash_point/update/{id}', 'settings\BuyTrashPointController@update');
+Route::get('settings/buy_trash_point/delete/{id}', 'settings\BuyTrashPointController@delete');

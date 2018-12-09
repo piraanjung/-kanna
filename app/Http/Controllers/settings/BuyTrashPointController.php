@@ -11,14 +11,12 @@ class BuyTrashPointController extends Controller
 {
     public function index(){
         $buy_trash_point = BuyTrashPoint::where(['status' => 'active'])->get();
-        return view('settings-buy-trash-point/index',[
-            'buy_trash_point' => $buy_trash_point
-        ]);
+        return view('settings.buy_trash_point.index',compact('buy_trash_point'));
     }
 
     public function create(){
         $buy_trash_area = DB::table('buy_trash_area')->select('area_name', 'id')->get();
-        return view('settings-buy-trash-point/create',[
+        return view('settings.buy_trash_point.create',[
             'buy_trash_area' => $buy_trash_area
         ]);
     }
@@ -31,28 +29,28 @@ class BuyTrashPointController extends Controller
             "created_at" => date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s')
         ]);
-        return redirect('settings-buy-trash-point/index');
+        return redirect('settings/buy_trash_point/index')->with('message', 'ทำการบันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
     public function edit($id){
         $buy_trash_point = DB::table('buy_trash_point')->where('id', $id)->first();
         $buy_trash_area = DB::table('buy_trash_area')->select('id', 'area_name')->get();
-        return view('settings-buy-trash-point/edit',[
+        return view('settings.buy_trash_point.edit',[
             'buy_trash_point' => $buy_trash_point,
             'buy_trash_area' => $buy_trash_area
         ]);
     }
 
 
-    public function update(Request $request){
-        DB::table('buy_trash_point')->where('id', $request->buy_trash_point_id)
+    public function update($id, Request $request){
+        DB::table('buy_trash_point')->where('id', $id)
             ->update([
                 "point_name" => $request->point_name,
                 "area_id" => $request->setting_buy_trash_area,
                 "status" => $request->setting_status,
                 "updated_at" => date('Y-m-d H:i:s')
             ]);
-        return redirect('settings-buy-trash-point/index');
+        return redirect('settings/buy_trash_point/index')->with('message', 'ทำการบันทึกการแก้ไขข้อมูลเรียบร้อยแล้ว');
     }
 
     public function delete($id){
@@ -61,7 +59,7 @@ class BuyTrashPointController extends Controller
                 'status' => 'inactive',
                 "updated_at" => date('Y-m-d H:i:s')
             ]);
-        return redirect('settings-buy-trash-point/index');
+        return redirect('settings/buy_trash_point/index')->with('message', 'ทำการลบข้อมูลเรียบร้อยแล้ว');
 
     }
 
