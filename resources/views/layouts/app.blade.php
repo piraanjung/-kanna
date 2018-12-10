@@ -436,19 +436,7 @@
     $('.dataTable').dataTable();
     $('.select2').select2();
 
-    function withdraw_print(){
-      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-      $.post( "/withdraw/confrim_withdraw_status", { id: 1,_token: CSRF_TOKEN })
-      .done(function( data ) {
-        if(data === 'true'){
-          
-          $('.no-print').css('display', 'none')
-          window.print();
-          $('.no-print').css('display', 'block')
-        }
-
-      });
-    }
+    
     
 
   </script>
@@ -503,6 +491,44 @@
     $('a.fileinput-exists').click(function(){
       $('#empty_img').attr('class','card-avatar')
     })
+
+    //withdraw/withdraw_form
+    $('#withdrawer').change(function(){
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      var user_id = $(this).val()
+      $.post( "/get_jquery/get_account_balance", { user_id: user_id,_token: CSRF_TOKEN })
+      .done(function( data ) {
+        $('#acc_balance').val(data[0]['balance'])
+        $('.id_card').val(data[0]['id_card'])
+      });
+    })
+
+    $('.withdraw_amount').keyup(function(){
+      var wd_amount = parseInt($(this).val())
+      var acbalance = parseInt($('#acc_balance').val())
+      console.log('wd='+wd_amount+" accb="+acbalance)
+        if(wd_amount>acbalance){
+          alert('เงินเกินงบ')
+          $(this).val('')
+        }
+    })
+
+    function withdraw_print(){
+      var withdraw_trans = $('#widthdraw_id').val()
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      $.post( "/withdraw/confrim_withdraw_status", { id: withdraw_trans,_token: CSRF_TOKEN })
+      .done(function( data ) {
+        if(data === 'true'){
+          
+          $('.no-print').css('display', 'none')
+          window.print();
+          $('.no-print').css('display', 'block')
+          $('#invoice2').attr('class' , 'invoice hidden')
+          $('#withdrawcomplete').attr('class', 'show')          
+        }
+      });
+    }
+
 
   </script>
   

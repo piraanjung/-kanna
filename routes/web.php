@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('account_saving/withdraw/{id}/{balance}', 'account_saving\AccountSavingController@decreaseAccountBalance');
+
 Route::get('withdraw/index', 'WithdrawController@index');
 Route::get('withdraw/withdraw_table', 'WithdrawController@withdraw_table');
 Route::get('withdraw/withdraw_form', 'WithdrawController@withdraw_form');
@@ -50,6 +52,7 @@ Route::post('trash_staff/store', 'TrashStaffController@store');
 
 Route::get('get_jquery/check_bottle_barcode/{id}', 'GetJQueryController@check_bottle_barcode');
 Route::post('get_jquery/store_bottles', 'GetJQueryController@store_bottles');
+Route::post('get_jquery/get_account_balance', 'GetJQueryController@get_account_balance');
 
 
 Route::post('/authen', 'AuthenController@authen');

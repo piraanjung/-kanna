@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent;
 use App\WithdrawTranction;
 use App\Http\Controllers\PrintController;
 use PDF;
-
+use App\AccountSaving;
+use App\Http\Controllers\account_saving\AccountSavingController;
+use App\Http\Requests\Withdraw;
 
 class WithdrawController extends Controller
 {
     protected $print;
-    public function __construct(PrintController $print){
+    protected $acc_savingCtrl;
+    public function __construct(PrintController $print, AccountSavingController $acc_savingCtrl){
         $this->print = $print;
+        $this->acc_savingCtrl = $acc_savingCtrl;
     }
     public function index(){
         return view('withdraw/index');
@@ -32,7 +37,7 @@ class WithdrawController extends Controller
         return view('withdraw/withdraw_form',['users' => $users]);
     }
 
-    public function withdraw_store(Request $request){
+    public function withdraw_store(Withdraw $request){
         // dd($request);
 
         $id_card_match = DB::table('users')->where('id_card', $request->id_card)->get();
@@ -48,6 +53,11 @@ class WithdrawController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
+
+            //เปลี่ยนสถานะยอดสะสมเป็น pending รอการ   update ยอดเงิน
+            $accSaving_set_pending = AccountSaving::where('user_id', $request->user_id)->get();
+            $accSaving_set_pending->status = 2;
+            $accSaving_set_pending->save(); 
             $status = 'ทำการบันทึกข้อมูลเรียบร้อยแล้ว';
         }else{
             $status = 'ไม่สามารถทำการบันทึกข้อมูลได้';
@@ -65,12 +75,6 @@ class WithdrawController extends Controller
     }
 
     public function update(Request $request, $id){
-        // $request->validate([
-        //     'share_name'=>'required',
-        //     'share_price'=> 'required|integer',
-        //     'share_qty' => 'required|integer'
-        //   ]);
-    // dd($request);
         $withdraw_transaction = WithdrawTranction::find($id);
         $withdraw_transaction->user_id = $request->get('user_id');
         $withdraw_transaction->withdraw_code = $request->get('withdraw_code');
@@ -82,16 +86,17 @@ class WithdrawController extends Controller
         $withdraw_transaction->save();
 
         return redirect('withdraw/withdraw_table')->with('success', 'ทำการบันทึกการ แก้ไขมูลเรียบร้อยแล้ว');
-    
     }
 
     public function pay_money($id){
-        $users = DB::table('users')->select('id', 'name', 'last_name')
-                ->where('status', 1)->get();
         $wd_transaction = WithdrawTranction::find($id);
+        $users = DB::table('users')->select('id', 'name', 'last_name')
+                ->where('status', 1)->where('id', $wd_transaction->user_id)->first();
+        $acc_saving = AccountSaving::where('user_id', $wd_transaction->user_id)->where('status', 2)->first();
+        // dd($acc_saving[0]->balance);       
         $wd_transaction->withdraw_date = $this->reverse_date_format($wd_transaction->withdraw_date);
         $wd_transaction->get_money_date = $this->reverse_date_format($wd_transaction->get_money_date);
-        return view('withdraw.pay_money', compact('users', 'wd_transaction'));
+        return view('withdraw.pay_money', compact('users', 'wd_transaction','acc_saving'));
     }
 
     public function withdraw_history(){
@@ -129,8 +134,16 @@ class WithdrawController extends Controller
     }
 
     public function confrim_withdraw_status(Request $request){
-       $update_status = WithdrawTranction::where('id', $request->id)->update(['withdraw_status' => 'complete']);
-       
-       echo  'true';
+        $update_withdraw_strans = WithdrawTranction::where('id','=', $request->id)->first();
+        $update_withdraw_strans->withdraw_status = 'complete';
+        $update_withdraw_strans->updated_at = date('Y-m-d H:i:s');
+        $update_withdraw_strans->save();
+
+       //update accSaving table
+        $update_accSaving = AccountSaving::where('user_id', $update_withdraw_strans->user_id)
+            ->where('status', 2)->first();
+        $this->acc_savingCtrl->decreaseAccountBalance($update_accSaving->id, $update_withdraw_strans->amount);
+        return 'true';
     }
+    
 }

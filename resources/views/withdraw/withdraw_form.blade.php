@@ -17,11 +17,19 @@
             <div class="card-body ">
                 <form  action="{{url('withdraw/withdraw_store')}}" method="post" class="form-horizontal">
                     @csrf
+                    <div style="float:right">
+                            <div class="card-header card-header-primary card-header-text">
+                                <div class="card-text">
+                                <label class="">ยอดเงินสะสม</label>
+                                    <input type="text" id="acc_balance" style="text-align:right" class="form-control" value="0" readonly> 
+                                </div>
+                            </div>
+                    </div>
                     <div class="row">
                         <label class="col-sm-2 col-form-label">ชื่อ-สกุลผู้ถอนเงิน</label>
                         <div class="col-sm-10">
                             <div class="form-group bmd-form-group">
-                                    <select class="select2" name="user_id">
+                                    <select class="select2" name="user_id" id="withdrawer">
                                         <option value="">เลือกชื่อผู้ถอนเงิน</option>
                                         {{-- <option>เลือก...</option> --}}
                                         @foreach ($users as $user)
@@ -35,7 +43,7 @@
                         <label class="col-sm-2 col-form-label">เลขบัตรประจำตัว</label>
                         <div class="col-sm-10">
                             <div class="form-group bmd-form-group">
-                                <input type="text" class="form-control" name="id_card">
+                                <input type="text" class="form-control id_card" name="id_card">
                             </div>
                         </div>
                     </div>
@@ -59,7 +67,7 @@
                         <label class="col-sm-2 col-form-label">จำนวนเงินที่ถอน</label>
                         <div class="col-sm-10">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="" name="amount">
+                                <input type="text" class="form-control withdraw_amount" placeholder="" name="amount">
                             </div>
                         </div>
                     </div>
@@ -79,3 +87,6 @@
    
 </div><!-- /.container-fluid -->
 @endsection
+
+
+

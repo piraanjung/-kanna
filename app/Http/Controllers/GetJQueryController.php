@@ -7,6 +7,8 @@ use App\District;
 use App\Tambon;
 use App\Bottles;
 use App\sellBottlesInSchool;
+use App\User;
+use App\AccountSaving;
 use Image;
 
 
@@ -92,4 +94,17 @@ class GetJQueryController extends Controller
             return response()->json($request, 200);
         }
     }
+
+    public function getUser($id){
+        $user  = User::where('id', $id)->get();
+
+    }
+
+    public function get_account_balance(Request $request){
+        $account_balance = AccountSaving::where('user_id', $request->user_id)
+            ->leftJoin('users', 'users.id', '=', 'acc_saving.user_id')
+            ->get(['acc_saving.*', 'users.id_card']);
+        return $account_balance;
+    }
+
 }

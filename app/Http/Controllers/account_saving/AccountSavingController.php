@@ -68,6 +68,8 @@ class AccountSavingController extends Controller
         $account_saving = AccountSaving::find($account_saving_id);
         if (!collect($account_saving)->isEmpty() && $account_saving_id !='') {
           $account_saving->balance -= $balance;
+          $account_saving->status =1;
+          $account_saving->updated_at = date('Y-m-d H:i:s');
           $account_saving->save();
         }
     }
