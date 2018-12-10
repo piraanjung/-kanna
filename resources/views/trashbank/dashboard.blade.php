@@ -6,7 +6,7 @@
 
  @section('sidebar')
      @parent
-     @include('withdraw.withdraw_sidebar',['index' => 1])
+     @include('trashbank.trashbank_sidebar',['index' => 1])
  @endsection
 
  @section('content')

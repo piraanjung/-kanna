@@ -112,7 +112,7 @@
                                 <p class="card-description">
                                     {{-- This is good if your company size is between 2 and 10 Persons. --}}
                                 </p>
-                                <a href="{{url('withdraw/index')}}" class="btn btn-rose btn-round">เข้าสู่ระบบ</a>
+                                <a href="{{url('trashbank')}}" class="btn btn-rose btn-round">เข้าสู่ระบบ</a>
                             </div>
                         </div>
                     </div>

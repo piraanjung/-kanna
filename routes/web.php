@@ -15,15 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('account_saving/withdraw/{id}/{balance}', 'account_saving\AccountSavingController@decreaseAccountBalance');
+Route::get('trashbank', 'Trashbank\TrashbankController@index');
 
-Route::get('withdraw/index', 'WithdrawController@index');
+Route::get('withdraw/index', 'Trashbank\WithdrawController@index');
 Route::get('withdraw/withdraw_table', 'WithdrawController@withdraw_table');
 Route::get('withdraw/withdraw_form', 'WithdrawController@withdraw_form');
 Route::post('withdraw/withdraw_store', 'WithdrawController@withdraw_store');
 Route::get('withdraw/edit/{id}', 'WithdrawController@edit');
 Route::patch('withdraw/update/{id}', 'WithdrawController@update');
 Route::get('withdraw/pay_money/{id}', 'WithdrawController@pay_money');
+
+Route::get('deposit/index', 'Trashbank\DepositController@index');
 
 Route::get('print/statement', 'PrintController@pay_money_statement');
 Route::get('withdraw/print/{id}', 'WithdrawController@print');
