@@ -26,6 +26,8 @@ Route::patch('withdraw/update/{id}', 'WithdrawController@update');
 Route::get('withdraw/pay_money/{id}', 'WithdrawController@pay_money');
 
 Route::get('deposit/index', 'Trashbank\DepositController@index');
+Route::get('deposit/create', 'Trashbank\DepositController@create');
+Route::post('deposit/store', 'Trashbank\DepositController@store');
 
 Route::get('print/statement', 'PrintController@pay_money_statement');
 Route::get('withdraw/print/{id}', 'WithdrawController@print');

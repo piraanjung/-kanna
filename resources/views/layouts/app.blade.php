@@ -435,7 +435,6 @@
     
     $('.dataTable').dataTable();
     $('.select2').select2();
-
     
     
 
@@ -528,8 +527,72 @@
         }
       });
     }
+  
+  var lastRow =1
+  var rowIndex =1
+  
+  function add_item_row(index){
+    var _val =$('#item').val();
+    var _text = $("#item :selected").text();
+    var price = $('#price_1').val()
+    var amount = $('#amount_1').val()
+    var total = $('#total_1').val()
+    console.log('val='+_val+" text= "+_text)
+    rowIndex = rowIndex+1
+      $('#trashbanktable > tbody').prepend(`
+        <tr>
+          <td>
+            <input type="text" class="form-control" name="add[`+rowIndex+`][item_name]" id="item`+rowIndex+`" value="`+_text+`">
+            <input type="hidden"  name="add[`+rowIndex+`][item_id]" value="`+_val+`">
+          </td>
+
+          <td><input type="text" class="form-control" name="add[`+rowIndex+`][price]" id="price_`+rowIndex+`" value="`+price+`"></td>
+          <td><input type="text" class="form-control" name="add[`+rowIndex+`][amount]" id="amount_`+rowIndex+`" value="`+amount+`"></td>
+          <td><input type="text" class="form-control" name="add[`+rowIndex+`][total]" id="total_`+rowIndex+`" value="`+total+`"></td>
+          <td>
+             
+              <a href="javascript:remove_item_row(`+rowIndex+`)" class="btn btn-just-icon btn-round btn-google" id="minus_`+rowIndex+`">
+                  <i class="fa fa-minus"></i>
+                  <div class="ripple-container"></div>
+              </a>
+          </td>
+        </tr>`)
+        $('#item').val('0');
+        $('#price_1').val('')
+        $('#amount_1').val('')
+        $('#total_1').val('')    
+    lastRow = rowCount+1
+
+    var rowCount = $('#trashbanktable > tbody > tr').length
+    lastRow = rowCount
 
 
+        if(rowIndex> 0){
+          rowCount = rowIndex+1
+        }
+
+  }
+  function remove_item_row(index){
+    $('#minus_'+index).closest("tr").remove() 
+    var rowCount = $('#trashbanktable > tbody > tr').length
+    rowIndex = rowCount+1;
+    lastRow = rowCount
+    console.log('remove rowCount='+rowCount+ 'lastRow = '+lastRow +'index='+index)
+    _index = $('#trashbanktable  tbody  tr:last-child td a:first').attr('id')
+          _index2 = $('#trashbanktable  tbody  tr:last-child td a:last').attr('id')
+        if(rowCount ==1){
+          $('#'+_index).attr('style', 'display:block')
+          $('#'+_index2).attr('style', 'display:none')
+        }else if(rowCount>1 && rowCount == lastRow){
+          _index = $('#trashbanktable  tbody  tr:last-child td a:first').attr('id')
+          _index2 = $('#trashbanktable  tbody  tr:last-child td a:last').attr('id')
+          $('#'+_index).attr('style', 'display:block')
+          $('#'+_index2).attr('style', 'display:block')
+        }else{
+          // $('#plus_'+index).attr('style', 'display:block')
+          // $('#minus_'+index).attr('style', 'display:none')
+        }
+  }
   </script>
   
   <script src="{{asset('filterizr/jquery.filterizr.min.js')}}"></script>
