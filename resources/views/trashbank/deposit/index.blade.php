@@ -27,6 +27,9 @@
 
                 </div>
                 <div class="card-body">
+                    @if (count($deposit_trans)> 0)
+                        
+                    
                     <?php $i=1;?>
                     <table class="table dataTable" id="myTable">
                         <thead>
@@ -65,6 +68,39 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+                    <div class="card ">
+                            <div class="card-header ">
+                            
+                            </div>
+                            <div class="card-body ">
+                              <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                  <!--
+                                            color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
+                                        -->
+                                  <ul class="nav nav-pills nav-pills-rose nav-pills-icons flex-column" role="tablist">
+                                    <li class="nav-item">
+                                      <a class="nav-link active" data-toggle="tab" href="#link110" role="tablist">
+                                        <i class="material-icons">dashboard</i> Home
+                                      </a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#link111" role="tablist">
+                                        <i class="material-icons">schedule</i> Settings
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="tab-content">
+                                    <h2>ยังไม่มีข้อมูล</h2>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    @endif
                 </div><!--c0rd-body -->
             </div>
            

@@ -35,7 +35,7 @@
                         <i class="material-icons">table</i>
                     </div>
                     <h4 class="card-title">ตารางพื้นที่รับซื้อขยะ</h4>
-                    <a href="{{ url('settings/buy-trash-area/create')}}" class="btn btn-primary">สร้าง
+                    <a href="{{ url('settings/buy_trash_area/create')}}" class="btn btn-primary">สร้าง
                         พื้นที่รับซื้อขยะ</a>
 
                 </div>
