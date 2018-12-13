@@ -14,6 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/users', 'UsersController@index');
+Route::get('/users/create', 'UsersController@create');
 
 Route::get('trashbank', 'Trashbank\TrashbankController@index');
 
@@ -76,3 +78,6 @@ Route::post('settings/buy_trash_point/store', 'settings\BuyTrashPointController@
 Route::get('settings/buy_trash_point/edit/{id}', 'settings\BuyTrashPointController@edit');
 Route::patch('settings/buy_trash_point/update/{id}', 'settings\BuyTrashPointController@update');
 Route::get('settings/buy_trash_point/delete/{id}', 'settings\BuyTrashPointController@delete');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
