@@ -81,3 +81,16 @@ Route::get('settings/buy_trash_point/delete/{id}', 'settings\BuyTrashPointContro
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//API
+Route::get('/api/getprovince', 'ApiController@getProvince');
+Route::get('/api/getdistricts/{province_code}', 'ApiController@getDistricts');
+Route::get('/api/gettambons/{distrinct_code}', 'ApiController@getTambons');
+Route::get('/api/check_duplicate_username/{username}', 'ApiController@checkDuplicateUsername');
+Route::get('/authen/api/getserialnumber/{simId}', 'AuthenController@getSimseialnumber');
+Route::post('/api/register_store', 'ApiController@registerStore');
+Route::post('/api/authen', 'ApiController@authen');
+Route::get('/api/check_trans_bank_code/{user_id}', 'ApiController@checkTransBankCode');
+Route::post('/api/save_transaction_code', 'ApiController@saveTransactionCode');
+

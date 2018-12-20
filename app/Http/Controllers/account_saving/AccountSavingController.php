@@ -26,12 +26,12 @@ class AccountSavingController extends Controller
 
     private $response = array('status' => 1);
 
-    private function setNewAccountSaving($user_id)
+    public function setNewAccountSaving($user_id)
     {
         $account_saving = new AccountSaving();
         $account_saving->user_id = $user_id;
         $account_saving->balance = 0;
-        $account_saving->status = 1;
+        $account_saving->status = 'complete';
         $account_saving->save();
         $lastId = $account_saving->id;
         return $lastId;

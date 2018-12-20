@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\utilities\ImageController;
 use App\User;
+use App\Profiles;
 use App\Http\Controllers\account_saving\AccountSavingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,22 @@ class AuthenController extends Controller
 				
 				return response()->json($result, $code);
     }
+
+    public function test(){
+        // return response()->json($result, $code);
+        return response()->json([
+            'id' => '01',
+            'first_name' => 'CA',
+            'last_name' => 'CAAA',
+            'email' => 'cAA@gmail.com'
+        ]);
+    }
+
+    public function getSimseialnumber($simId){
+        $checkSimId = Profiles::where('simserial_number', $simId)->first();
+        
+        return response()->json($checkSimId);
+    }
     
     public function authen_by_password_and_phone(Request $request)
     {
@@ -54,8 +71,7 @@ class AuthenController extends Controller
                     // array_push($results, $result);
 					$code = 200;
 				}
-				
-				return response()->json($result, $code);
+				return response()->json($request, $code);
     }
 
     private function verifyhasPassword($plainPassword, $result)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Province;
 use App\District;
 use App\Tambon;
 use App\Bottles;
@@ -14,10 +15,6 @@ use Image;
 
 class GetJQueryController extends Controller
 {
-    public function getProvince(){
-
-    }
-
     public function getDistricts($province_code){
         $districts = District::where('province_code', $province_code)->get();
         $str = '<select class="select2 form-control">
